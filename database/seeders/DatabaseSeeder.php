@@ -7,12 +7,13 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Запуск сидов
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // User::factory(10)->create();
+        $this->call(ProductTypeSeeder::class);
     }
 }
