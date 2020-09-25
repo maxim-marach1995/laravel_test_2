@@ -22,6 +22,7 @@ class Product extends Model
      *
      * Аттрибуты для заполнения
      *
+     * sort|unsignedTinyInteger - Поле для сортировки
      * name|string|max:150 - Наименование продукта
      * brand|string|max:150 - Бренд
      * model|string|max:150 - Модель
@@ -31,6 +32,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
+        'sort',
         'name',
         'brand',
         'model',

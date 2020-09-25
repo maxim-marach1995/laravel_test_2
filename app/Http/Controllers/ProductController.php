@@ -16,9 +16,7 @@ class ProductController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
-        $products = Product::with('product_type')->get();
-
-        return view('products.index', compact('products'));
+        return view('admin.products.index');
     }
 
     /**
@@ -31,7 +29,7 @@ class ProductController extends Controller
     {
         $productTypes = ProductType::all();
 
-        return view('products.create', compact('productTypes'));
+        return view('admin.products.create', compact('productTypes'));
     }
 
     /**
@@ -44,11 +42,12 @@ class ProductController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
+            'sort' => 'required|integer',
             'name' => 'required',
             'brand' => 'required',
             'model' => 'required',
             'type_id' => 'required|integer',
-            'price' => 'numeric',
+            'price' => 'numeric|max:999999,99',
         ], [
             'required' => 'Поле :attribute обязательно для заполнения',
             'max' => 'Максимальное возможное значение для :attribute равняется :max',
@@ -67,7 +66,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\View\View
      */
-    public function show(Product $product): \Illuminate\View\View
+    public function show(Product $product)//: \Illuminate\View\View
     {
         //
     }
@@ -83,7 +82,7 @@ class ProductController extends Controller
     {
         $productTypes = ProductType::all();
 
-        return view('products.update', compact('product','productTypes'));
+        return view('admin.products.update', compact('product','productTypes'));
     }
 
     /**
@@ -97,18 +96,19 @@ class ProductController extends Controller
     public function update(Request $request, Product $product): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
+            'sort' => 'required|integer',
             'name' => 'required',
             'brand' => 'required',
             'model' => 'required',
             'type_id' => 'required|integer',
-            'price' => 'numeric',
+            'price' => 'numeric|max:999999,99',
         ], [
             'required' => 'Поле :attribute обязательно для заполнения',
             'max' => 'Максимальное возможное значение для :attribute равняется :max',
             'numeric' => 'Данные в поле :attribute должны быть числом',
         ]);
 
-        Product::where('id', $product->id)->update($validated);
+        $product->update($validated);
 
         return redirect()->route('products.index');
     }
@@ -117,12 +117,12 @@ class ProductController extends Controller
      *
      * Удаление $product из БД
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Product $product): \Illuminate\Http\RedirectResponse
     {
-        Product::destroy($product->id);
+        $product->delete();
 
         return redirect()->route('products.index');
     }

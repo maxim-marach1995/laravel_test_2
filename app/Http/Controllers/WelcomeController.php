@@ -15,8 +15,6 @@ class WelcomeController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
-        $products = Product::with('product_type')->get();
-
-        return view('welcome', compact('products'));
+        return view('client.welcome');
     }
 }

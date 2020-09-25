@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table): void {
             $table->increments('id');
+            $table->unsignedTinyInteger('sort')->default('1')->comment('Сортировка');
             $table->string('name', 150)->comment('Название продукта');
             $table->string('brand', 150)->comment('Бренд');
             $table->string('model', 150)->comment('Модель');
@@ -31,6 +32,6 @@ class CreateProductsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prodycts');
+        Schema::dropIfExists('products');
     }
 }
