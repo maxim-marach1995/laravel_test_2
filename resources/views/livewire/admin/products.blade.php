@@ -1,5 +1,5 @@
 <div class="mt-3">
-    <input class="form-control mr-sm-2" wire:model="search" type="search" placeholder="Поиск по наименованию" aria-label="Поиск">
+    <input class="form-control mr-sm-2" wire:model="search" type="search" placeholder="Поиск" aria-label="Поиск">
     <table class="table mt-3">
         <thead>
         <tr>
@@ -7,7 +7,7 @@
             <th scope="col" wire:click="sort('name')">Наименование продукта</th>
             <th scope="col" wire:click="sort('brand')">Бренд</th>
             <th scope="col" wire:click="sort('model')">Модель</th>
-            <th scope="col">Тип продукта</th>
+            <th scope="col" wire:click="sort('type_id')">Тип продукта</th>
             <th scope="col" wire:click="sort('price')">Цена</th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -20,7 +20,7 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->brand }}</td>
                     <td>{{ $product->model }}</td>
-                    <td>{{ $product->product_type->type }}</td>
+                    <td>{{ $product->productType->type }}</td>
                     <td>{{ $product->price }}</td>
                     <td>
                         <button type="submit" wire:click="destroy({{ $product->id }})" class="btn btn-danger">Удалить</button>
@@ -36,4 +36,6 @@
             @endempty
         </tbody>
     </table>
+
+    {{ $products->links() }}
 </div>

@@ -2,17 +2,45 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Product;
+use Livewire\WithPagination;
+use App\Models\Order;
 
 class Welcome extends Component
 {
-    public $products;
+    use WithPagination;
+    /**
+     * @var $products - Список элементов
+     * @var $paginationTheme - Тема пагинатора
+     */
+    protected $paginationTheme = 'bootstrap';
 
-    public function render()
+    /**
+     *
+     * Метод добавляет продукт
+     *
+     * @return void
+     */
+    public function addProduct($id): void
     {
-        $this->products = Product::all();
+        Order::create([
+            'product_id' => $id,
+            'user_id' => Auth::id()
+        ]);
+    }
 
-        return view('client.livewire.welcome');
+    /**
+     *
+     * Рендер страницы
+     *
+     * @return \Illuminate\View\View
+     */
+    public function render(): \Illuminate\View\View
+    {
+        $products = Product::with('productType')->paginate(5);
+
+        return view('livewire.client.welcome', compact('products'));
     }
 }

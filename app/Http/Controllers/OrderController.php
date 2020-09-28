@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Order;
+
+class OrderController extends Controller
+{
+    /**
+     *
+     * Отображение списка элементов
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): \Illuminate\View\View
+    {
+        $orders = Order::with('product')
+            ->with('user')
+            ->get();
+
+        return view('admin.orders.index', compact('orders'));
+    }
+}

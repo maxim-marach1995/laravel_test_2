@@ -46,7 +46,7 @@ class Product extends Model
      *
      * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function product_type(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function productType(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(ProductType::class, 'id', 'type_id');
     }
