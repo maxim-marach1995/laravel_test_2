@@ -12,7 +12,6 @@ class Welcome extends Component
 {
     use WithPagination;
     /**
-     * @var $products - Список элементов
      * @var $paginationTheme - Тема пагинатора
      */
     protected $paginationTheme = 'bootstrap';
@@ -27,7 +26,6 @@ class Welcome extends Component
     {
         Order::create([
             'product_id' => $id,
-            'user_id' => Auth::id()
         ]);
     }
 

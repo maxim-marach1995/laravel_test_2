@@ -4,9 +4,8 @@
 
 @section('content')
     @forelse($orders as $order)
-        <div class="card">
+        <div class="card mt-3">
             <div class="card-body">
-                <p class="card-text"><b>Покупатель:</b> {{ $order->user->name }}</p>
                 <p class="card-text"><b>Наименование продукта:</b> {{ $order->product->name }}</p>
                 <p class="card-text"><b>Бренд:</b> {{ $order->product->brand }}</p>
                 <p class="card-text"><b>Модель:</b> {{ $order->product->model }}</p>

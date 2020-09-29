@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('product_id')->comment('Продукт');
-            $table->unsignedSmallInteger('user_id')->comment('Пользователь');
             $table->timestamps();
         });
     }

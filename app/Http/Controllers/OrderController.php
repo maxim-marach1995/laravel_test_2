@@ -16,8 +16,7 @@ class OrderController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
-        $orders = Order::with('user')
-            ->with('product')
+        $orders = Order::with('product')
             ->get();
 
         return view('admin.orders.index', compact('orders'));
