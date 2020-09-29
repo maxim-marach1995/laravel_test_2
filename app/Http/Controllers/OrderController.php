@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Builder;
 
 class OrderController extends Controller
 {
@@ -15,8 +16,8 @@ class OrderController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
-        $orders = Order::with('product')
-            ->with('user')
+        $orders = Order::with('user')
+            ->with('product')
             ->get();
 
         return view('admin.orders.index', compact('orders'));

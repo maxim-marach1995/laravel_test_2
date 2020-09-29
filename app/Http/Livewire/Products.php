@@ -52,6 +52,11 @@ class Products extends Component
         Product::find($id)->delete();
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     /**
      *
      * Рендер страницы
@@ -64,13 +69,13 @@ class Products extends Component
 
         if($this->search)
         {
-            $products->where('name', 'like', '%' . $this->search . '%')
+            $products->where(fn ($q) => $q->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('brand', 'like', '%' . $this->search . '%')
                 ->orWhere('model', 'like', '%' . $this->search . '%')
                 ->orWhere('price', 'like', '%' . $this->search . '%')
                 ->orWhereHas('productType', function (Builder $query) {
                     $query->where('type', 'like', '%' . $this->search . '%');
-                });
+                }));
         }
 
         $products = $products->orderBy($this->sortField, $this->sortType)->paginate(5);
