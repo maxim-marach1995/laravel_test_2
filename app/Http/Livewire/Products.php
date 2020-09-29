@@ -52,7 +52,13 @@ class Products extends Component
         Product::find($id)->delete();
     }
 
-    public function updatingSearch()
+    /**
+     *
+     * Метод сбрасывает пагинацию
+     *
+     * @return void
+     */
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
